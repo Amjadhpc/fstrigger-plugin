@@ -141,7 +141,9 @@ public class FolderContentTrigger extends AbstractTrigger {
         Map<String, String> envVars;
         try {
         	if( job != null ) {
-        		envVars = EnvVarsResolver.getPollingEnvVars((AbstractProject) job, pollingNode);
+        		//envVars = EnvVarsResolver.getPollingEnvVars((AbstractProject) job, pollingNode);
+
+                envVars = EnvVarsResolver.getPollingEnvVars((Job<?,?>)job,pollingNode);
         	} else {
         		envVars = new HashMap<String , String>() ;
         	}
@@ -373,6 +375,8 @@ public class FolderContentTrigger extends AbstractTrigger {
         Map<String, String> envVars = null;
         try {
             envVars = EnvVarsResolver.getPollingEnvVars((AbstractProject) project, pollingNode);
+
+
         } catch (EnvInjectException e) {
             //Ignore the exception process, just log it
             LOGGER.log(Level.SEVERE, e.getMessage());

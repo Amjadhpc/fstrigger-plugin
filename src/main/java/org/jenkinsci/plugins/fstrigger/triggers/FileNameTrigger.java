@@ -83,12 +83,12 @@ public class FileNameTrigger extends AbstractTrigger {
     }
 
     @Override
-    public void start(Node pollingNode, BuildableItem project, boolean newInstance, XTriggerLog log) {
+    public void start(Node pollingNode, BuildableItem project, boolean newInstance, XTriggerLog log)  {
 
         try {
             FSTriggerComputeFileService service = new FSTriggerComputeFileService();
             for (FileNameTriggerInfo info : fileInfo) {
-                FilePath resolvedFile = service.computedFile(pollingNode, (Job) project, info, new XTriggerLog((StreamTaskListener) TaskListener.NULL));
+                FilePath resolvedFile = service.computedFile(pollingNode, (Job<?,?>) project, info, new XTriggerLog((StreamTaskListener.fromStdout())));
                 if (resolvedFile != null) {
                     info.setResolvedFile(resolvedFile);
                     info.setLastModifications(resolvedFile.lastModified());
